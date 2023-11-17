@@ -1,0 +1,4 @@
+
+{% for candidate in candidates %}
+  <p>{{ candidate.first_name }} {{ candidate.last_name }} - <a href="{% url 'candidate_detail' pk=candidate.pk %}">View</a></p>
+{% endfor %}
