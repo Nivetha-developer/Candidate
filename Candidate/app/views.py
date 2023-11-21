@@ -6,10 +6,12 @@ from  rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import *
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect
 
 
 class CandidateListAPIView(APIView):
+ 
     def get(self, request):
         try:
             candidates = Candidatedirectory.objects.all()
@@ -18,7 +20,7 @@ class CandidateListAPIView(APIView):
         except Exception as e:
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
 
-    @csrf_protect
+    
     def post(self, request):
         serializer = CandidateSerializer(data=request.data)
         if serializer.is_valid():
@@ -43,7 +45,7 @@ class CandidateDetailAPIView(APIView):
     def delete(self, request, pk):
         candidate = get_object_or_404(Candidatedirectory, pk=pk)
         candidate.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response("data deleted successfully")
 
 
 
@@ -84,7 +86,22 @@ def candidate_delete(request, pk):
     candidate.delete()
     return redirect('candidate_list')
 
-from .models import *
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Eventdetails.objects.create(event_name ="event_name" )
 # Jobrequisition.objects.create(job_title  ="job_title " )
 # Persona.objects.create(persona_name ="Persona" )
